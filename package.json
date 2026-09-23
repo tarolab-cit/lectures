@@ -1,0 +1,7 @@
+{
+  "name": "tarolab-cit-lectures",
+  "private": true,
+  "scripts": { "build": "node scripts/build.mjs" },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "@marp-team/marp-cli": "4.5.1" }
+}

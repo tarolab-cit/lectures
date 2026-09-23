@@ -8,7 +8,9 @@ marp: true
 
 ## 第1回: イントロダクション
 
-千葉工業大学 上田 隆一
+千葉工業大学 鈴木 太郎
+
+<span style="font-size:70%">原資料: 上田 隆一（千葉工業大学）[ロボットシステム学 2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025) を改変</span>
 
 <br />
 
