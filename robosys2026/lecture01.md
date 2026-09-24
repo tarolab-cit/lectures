@@ -65,7 +65,7 @@ marp: true
     - 自動運転、倉庫の搬送ロボット、[ドローン](https://www.taroz.net/video/uav_gnss-lidar.mp4)、ロボットアーム
     - 研究・教育用ロボット（TurtleBotなど）、[ロボット競技会](https://www.taroz.net/video/tc2024.mp4)、宇宙・海洋探査<br />　
 - 使う理由
-    - ゼロから作らなくてよい: 既存の部品を組み合わせてロボットを動かせる
+    - [みんなが使っている](https://www.docswell.com/s/ystk_hara/Z22VL9-tsukuba-challenge-2024-survey): 既存の部品を組み合わせてロボットを動かせる
     - 分担しやすい: 部品ごとに別の人・別の言語で開発し、通信でつなぐ
     - 共通の基盤: 誰でも同じようにロボットを動かすことができる<br />　
 - 必要な周辺知識
