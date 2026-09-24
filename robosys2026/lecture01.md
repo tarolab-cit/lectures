@@ -1,6 +1,12 @@
 ---
 marp: true
 ---
+<!--
+style: |
+  section {
+    line-height: 1.15;
+  }
+-->
 
 <!-- footer: "ロボットシステム学第1回" -->
 
