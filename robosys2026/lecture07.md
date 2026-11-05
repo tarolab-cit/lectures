@@ -74,7 +74,7 @@ style: |
   - デバッグやリリースの際の手間の削減が可能
   - 「動いているシステムは怖くていじれない」からの脱却
     - 「継続的インテグレーション（CI）」「継続的デリバリー（CD）」「継続的デプロイ」
-    - 前ページのサービス（<span style="color:red">CI/CDサービス</span>）のテスト機能: CIやCDを実現するためのもの　
+    - 前ページのサービス（<span style="color:red">CI/CDサービス</span>）のテスト機能: CIやCDを実現するためのもの<br />　
 - <span style="color:red">「自動」でテストできることがキモ</span>
   - 自動化の仕組み: テストの終了ステータスが0$\rightarrow$自動化のプログラムを起動
   - 前回`exit $res`で終了ステータスを返したのはこのため
@@ -127,10 +127,10 @@ jobs:             #走らせたい処理（ジョブ）のリスト
 ### push$\rightarrow$ワークフローの自動実行
 
 - リポジトリのページに小さな記号
-  - <span style="color:orange">$\bullet$</span>: 実行中、<span style="color:green">$\checkmark$</span>: テスト成功、<span style="color:red">$\times$</span>: テスト失敗
-<img src="./figs/github_actions_running.png" width="60%" />
+- <span style="color:orange">$\bullet$</span>: 実行中、<span style="color:green">$\checkmark$</span>: テスト成功、<span style="color:red">$\times$</span>: テスト失敗
+<img src="./figs/github_actions_running.png" width="70%" /><br />　
 - 記号を左クリックすると小窓が出現$\rightarrow$「Details」を押してみましょう
-<img src="./figs/github_actions_ok.png" width="65%" />
+<img src="./figs/github_actions_ok.png" width="70%" />
 
 ---
 
@@ -138,18 +138,18 @@ jobs:             #走らせたい処理（ジョブ）のリスト
 
 - Detailsを押すと行われた処理のシェルの出力が閲覧可能
   - 「All test」をクリックすると`test.bash`のログ
-<img src="./figs/testlog.png" width="70%" />
+<img src="./figs/testlog.png" width="80%" />
 - 全項目の終了ステータスが0なら<span style="color:green">$\checkmark$</span>の表示
 
 ---
 
 ### 複数バージョンのPythonを試す
 
-<style scoped>pre { font-size: 85%; }</style>
+<style scoped>pre { font-size: 75%; }</style>
 
 - 準備: `plus`のシバンを<span style="color:red">`#!/usr/bin/env python3`</span>に変更してコミット
   - `PATH`から`python3`を探して実行（手元では今までと同じ動作）
-- ジョブに`strategy/matrix/python-version`を追加
+- ジョブに`strategy/matrix/python-version`を追加$\rightarrow$全バージョンでテスト
   ```yaml
   name: test
   on: push
@@ -168,28 +168,26 @@ jobs:             #走らせたい処理（ジョブ）のリスト
       - name: All test
         run: bash -xv ./test.bash
   ```
-  - 実行してみると、全バージョンに対してテストが走る
 
 ---
 
 ## 2. READMEの整備
 
 - README: このソフトを使ってもらうときに最初に読んでもらうドキュメント
-  - 練習リポジトリの中にある`README.md`
+  - robosys2026の中にある`README.md`
   ```markdown
   # robosys2026
-  ロボットシステム学の練習リポジトリ
+  このリポジトリはロボットシステム学の授業で利用するリポジトリです。いくつかのソフトウェアパッケージを公開しています。
   ```
-    - Markdownという形式で記述
-  - GitHubだとこのように表示される<img src="./figs/readme_md.png" width="70%" />
-    - 今のところ不親切
+  - Markdown形式、GitHubだとこのように表示される<img src="./figs/readme_md.png" width="75%" />
+  - plusというコマンドの説明になっていない
 
 
 ---
 
 ### READMEに書くこと
 
-- 全て書く必要はないが、ユーザーが困らないように（[例](https://github.com/shellgei/rusty_bash)）
+- 全て書く必要はないが、ユーザーが困らないように
   - 何をするためのソフトか
   - 使い方
     - ダウンロード、インストール、起動する手順、簡単な使い方
@@ -206,7 +204,7 @@ jobs:             #走らせたい処理（ジョブ）のリスト
 ### テスト結果やテストに対する記述
 
 
-- README.mdの例（鵜呑みにしないこと。コピーしても正解になりません）
+- README.mdの例
   ```md
   # plusコマンド
   ![test](https://github.com/<ユーザ名>/robosys2026/actions/workflows/test.yml/badge.svg)
@@ -232,8 +230,7 @@ jobs:             #走らせたい処理（ジョブ）のリスト
 
 ### GitHub上での表示
 
-<img src="./figs/readme_with_badge.png" width="70%" />
-（注意: 細かいところは前のページの記述と違いがあります）
+<img src="./figs/readme_with_badge.png" width="60%" />
 
 
 ---
@@ -244,7 +241,7 @@ jobs:             #走らせたい処理（ジョブ）のリスト
   - pushしたときに自動でテスト$\rightarrow$結果を表示
     - ユーザーに状況を伝達
   - 終了ステータスを利用
-    - 最新のサービスでも基本的な仕組みに依存　
+    - 最新のサービスでも基本的な仕組みに依存<br />　
 - READMEの整備
   - リポジトリのソフトを安心して広く使ってもらうために必須
   - ある程度フォーマットは決まっているものの、ユーザーへの気配り重視で記述しましょう
@@ -256,7 +253,7 @@ jobs:             #走らせたい処理（ジョブ）のリスト
 
 - 誰かの役に立つlinuxコマンドを作成する
     - コマンドなので・・・
-        - 何らかの文字を入力（引数、オプション）し、加工して標準出力に出力
+        - 何らかの文字を入力し（引数、オプション）、加工して標準出力に出力
     - robosys2026のリポジトリでも新たに作成したリポジトリでもOK
 - リポジトリを充実させる
     - 少しづつ開発、コミットした履歴がある
