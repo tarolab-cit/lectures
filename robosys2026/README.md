@@ -13,6 +13,10 @@
 - 第11回: 
 - 第12回: 
 
+補足資料
+
+- [WSL2へのROS 2のインストール](https://github.com/tarolab-cit/lectures/blob/main/robosys2026/ros2_install.md)
+
 この資料は、上田隆一先生（千葉工業大学）の [ロボットシステム学 2025](https://github.com/ryuichiueda/slides_marp/tree/master/robosys2025) の資料を改変したものです。
 
 ライセンスは [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)（[LICENSE](LICENSE)）です。
