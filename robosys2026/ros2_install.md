@@ -14,6 +14,7 @@ WSL2にUbuntu 24.04がインストールされていることが前提です（[
 
 ```
 sudo apt update
+sudo apt upgrade -y
 ```
 
 パスワードを聞かれたら、WSLのインストール時に設定したパスワードを入力します。
@@ -36,7 +37,6 @@ ROS 2本体（デスクトップ版）と開発用ツールをインストール
 
 ```
 sudo apt update
-sudo apt upgrade -y
 sudo apt install -y ros-jazzy-desktop ros-dev-tools
 ```
 
