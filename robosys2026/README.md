@@ -7,7 +7,7 @@
 - [第5回: 著作権とライセンス](https://tarolab-cit.github.io/lectures/robosys2026/lecture05.html)
 - [第6回: ソフトウェアのテスト](https://tarolab-cit.github.io/lectures/robosys2026/lecture06.html)
 - [第7回: GitHubでのテスト](https://tarolab-cit.github.io/lectures/robosys2026/lecture07.html)
-- 第8回: 
+- [第8回: Robot Operating System (ROS 2)](https://tarolab-cit.github.io/lectures/robosys2026/lecture08.html)
 - 第9回: 
 - 第10回: 
 - 第11回: 
