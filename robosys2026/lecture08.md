@@ -119,9 +119,9 @@ style: |
 ### ROS 2のインストール
 
 - 手順は補足資料に
-    - [WSL2へのROS 2のインストール](https://github.com/tarolab-cit/lectures/blob/main/robosys2026/ros2_install.md)（README.mdからもリンク）
-    - 所要時間は30分〜1時間。<span style="color:red">授業前に済ませておくこと</span><br />　
-- 確認: 3つのことを順に確かめる
+    - [WSL2へのROS 2のインストール](https://github.com/tarolab-cit/lectures/blob/main/robosys2026/ros2_install.md)
+    - 所要時間は約30分、授業前にできれば済ませておく<br />　
+- インストールできたかどうかの確認
     ```bash
     $ ls /opt/ros/jazzy/      #(1) ROS 2本体がインストールされているか
     bin  include  lib  local_setup.bash  setup.bash  share  ・・・
@@ -132,7 +132,7 @@ style: |
                 Call `ros2 <command> -h` for more detailed usage. ...
     （以下略）
     ```
-    - (2)で何も出ない、(3)で`command not found`: 補足資料の「5. 環境設定」を確認
+    - (2)で何も出ない、(3)で`command not found`: 補足資料「5. 環境設定」を確認
 
 ---
 
@@ -140,7 +140,7 @@ style: |
 
 - ROS 2は同じネットワーク内のPCと自動で通信する
     - 教室だと他の人のノードとつながってしまう $\rightarrow$ 自分のPC内に限定する
-    - `~/.bashrc`の末尾に1行追加して読み直す
+    - `~/.bashrc`の末尾に1行追加して読み直すく<br />　
     ```bash
     $ echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> ~/.bashrc
     $ source ~/.bashrc
@@ -212,7 +212,7 @@ style: |
 ### パブリッシュとサブスクライブ
 
 - <span style="color:red">トピック</span>: 名前と型を持つメッセージの通り道
-    - 例: 名前`/chatter`、型`std_msgs/msg/String`（文字列ひとつ）<br />　
+    - 例: 名前`/chatter`、型`std_msgs/msg/String`（文字列の型）<br />　
 - <span style="color:red">パブリッシュ</span>: ノードがトピックにメッセージを送ること
     - 送り先のノードは指定しない。「`/chatter`に出す」とだけ決める
 - <span style="color:red">サブスクライブ</span>: ノードがトピックからメッセージを受け取ること
@@ -298,7 +298,7 @@ $ tree ~/ros2_ws/
 - パッケージ: ROSのプログラム（ノード）のまとまり。<span style="color:red">配布と再利用の単位</span>
     - さっき使った`demo_nodes_py`もパッケージ
         - `ros2 run demo_nodes_py talker` = その中の`talker`ノードを起動
-    - GitHubのリポジトリ1つ、`apt`で入るもの1つ、にほぼ対応<br />　
+    - GitHubで配布されているROSのリポジトリにほぼ対応<br />　
 - 中身: ノードのプログラム + 説明書き（`package.xml`、`setup.py`）
     - 名前、作者、ライセンス、必要な他のパッケージ、どのノードがあるか
     - どのパッケージも同じ構造 $\rightarrow$ 他人のパッケージも同じ手順で使える<br />　
@@ -458,6 +458,7 @@ def main():
       <exec_depend>rclpy</exec_depend>       <!-- 追加: 実行時に必要なパッケージ -->
       <exec_depend>std_msgs</exec_depend>    <!-- 追加 -->
     ```
+
 - なぜ書くのか: 「動かすには何が必要か」を機械が読める形で残すため
     - 他人が使うとき、<span style="color:red">`rosdep`</span>がこれを読んで足りないものを`apt`で入れる
     ```bash
@@ -567,7 +568,7 @@ def main():
 
 - そのままこれが課題2のリポジトリになります
     - 注意: `mypkg`の下のファイルがリポジトリの一番上の階層に来るように
-- GitHubで`mypkg`という名前の空のリポジトリを作る（READMEは<span style="color:red">作らない</span>）
+- GitHubで`mypkg`という名前の空のリポジトリを作る
 - 手元の`mypkg`で次のように作業（第4回の付録と同じ手順）
     ```bash
     $ cd ~/ros2_ws/src/mypkg
