@@ -140,7 +140,7 @@ style: |
 
 - ROS 2は同じネットワーク内のPCと自動で通信する
     - 教室だと他の人のノードとつながってしまう $\rightarrow$ 自分のPC内に限定する
-    - `~/.bashrc`の末尾に1行追加して読み直すく<br />　
+    - `~/.bashrc`の末尾に1行追加して読み直す<br />　
     ```bash
     $ echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> ~/.bashrc
     $ source ~/.bashrc
