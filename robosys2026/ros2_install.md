@@ -31,6 +31,10 @@ curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-a
 sudo dpkg -i /tmp/ros2-apt-source.deb
 ```
 
+学校のWiFiで行っている場合、最後のdpkgでエラーが出ることがあります。
+これは3行目のコマンドがAPI制限にひっかかっているためなので、テザリングで後半3行のコマンドを実行することで回避できます。
+（エラー放置して進んでもインストールできた事例もあるようです。）
+
 ## 3. ROS 2のインストール
 
 ROS 2本体（デスクトップ版）と開発用ツールをインストールします。ここが一番時間がかかります。
