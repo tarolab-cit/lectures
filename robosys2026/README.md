@@ -8,7 +8,7 @@
 - [第6回: ソフトウェアのテスト](https://tarolab-cit.github.io/lectures/robosys2026/lecture06.html)
 - [第7回: GitHubでのテスト](https://tarolab-cit.github.io/lectures/robosys2026/lecture07.html)
 - [第8回: Robot Operating System (ROS 2)](https://tarolab-cit.github.io/lectures/robosys2026/lecture08.html)
-- 第9回: 
+- [第9回: ROS 2の通信と型](https://tarolab-cit.github.io/lectures/robosys2026/lecture09.html)
 - 第10回: 
 - 第11回: 
 - 第12回: 

@@ -66,7 +66,7 @@ style: |
     ・・・
         data_files=[
             ・・・
-            (os.path.join('share', package_name), glob('launch/*.launch.py')),  #追加
+            (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),  #追加
         ],
     ```
 - `package.xml`に依存関係を記述
@@ -166,7 +166,7 @@ style: |
 - `package.xml`も編集
     - `buildtool_depend`の下あたりに、次の3行を追加
     ```xml
-    <build_depend>rosidl_default_generators</build_depend>
+    <buildtool_depend>rosidl_default_generators</buildtool_depend>
     <exec_depend>rosidl_default_runtime</exec_depend>
     <member_of_group>rosidl_interface_packages</member_of_group>
     ```
@@ -184,7 +184,7 @@ style: |
     Finished <<< person_msgs [2.32s]
 
     Summary: 2 packages finished [2.51s]
-      1 package had stderr output: mypkg
+      1 package had stderr output: mypkg    #警告。エラーでなければ気にしない
     ```
 - `source`して、型が利用できるようになっているか確認
     ```bash
@@ -213,8 +213,8 @@ style: |
     def cb():
         global n
         msg = Person()          #送信するデータの型を変更
-        msg.name = "上田隆一"    #msgファイルに書いた「name」
-        msg.age = n             #msgファイルに書いた「age」
+        msg.name = "鈴木太郎"    #msgファイルに書いた「name」
+        msg.age = n % 256       #msgファイルに書いた「age」
         pub.publish(msg)
         n += 1
     ```
@@ -229,6 +229,12 @@ def main():
     node.create_timer(0.5, cb)
     rclpy.spin(node)
 ```
+- `age`は`uint8`（0〜255）なので、256で割った余りを入れる
+    - そのまま`n`を入れると約2分でエラーになって止まる
+- `mypkg`の`package.xml`に依存関係を追加
+    ```xml
+      <exec_depend>person_msgs</exec_depend>    <!-- 追加: 作った型のパッケージ -->
+    ```
 - ビルドして実行し、`ros2 topic echo /person`で確認のこと
 
 ---
@@ -328,8 +334,8 @@ def main():
 
 
     def cb(request, response):
-        if request.name == "上田隆一":
-            response.age = 46
+        if request.name == "鈴木太郎":
+            response.age = 41
         else:
             response.age = 255
 
@@ -352,11 +358,11 @@ def main():
     /query                  #表示されるか確認
     （以下略）
     ### 実行 ###
-    $ ros2 service call /query person_msgs/srv/Query "name: 上田隆一"
-    requester: making request: person_msgs.srv.Query_Request(name='上田隆一')
+    $ ros2 service call /query person_msgs/srv/Query "name: 鈴木太郎"
+    requester: making request: person_msgs.srv.Query_Request(name='鈴木太郎')
 
     response:
-    person_msgs.srv.Query_Response(age=46)
+    person_msgs.srv.Query_Response(age=41)
 
     $ ros2 service call /query person_msgs/srv/Query "name: しらない人"
     （略）
@@ -384,7 +390,7 @@ def main():
             node.get_logger().info('待機中')
 
         req = Query.Request()
-        req.name = "上田隆一"
+        req.name = "鈴木太郎"
         future = client.call_async(req)   #非同期でサービスを呼び出し
     ```
     （次ページに続く）
@@ -420,14 +426,14 @@ def main():
     - `talker`を先、`listener`を後: すぐに年齢が受け取れる
     ```bash
     $ ros2 run mypkg listener
-    [INFO] [1664865501.806117977] [listener]: age: 46
+    [INFO] [1664865501.806117977] [listener]: age: 41
     ```
     - `listener`を先、`talker`を後: 「待機中」が出たあと年齢が受け取れる
     ```bash
     $ ros2 run mypkg listener
     [INFO] [1664865500.552181002] [listener]: 待機中
     [INFO] [1664865501.554913737] [listener]: 待機中
-    [INFO] [1664865501.806117977] [listener]: age: 46
+    [INFO] [1664865501.806117977] [listener]: age: 41
     ```
 
 ---
