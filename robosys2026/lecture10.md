@@ -52,8 +52,13 @@ style: |
     $ git switch -c lesson10 a906a47    #このコミットからブランチを作成
     Switched to a new branch 'lesson10'
     ```
-- ビルドして`ros2 launch mypkg talk_listen.launch.py`で動作確認を
-    - `Listen: 数字`と表示されればOK
+- ビルドして動作確認（`Listen: 数字`と表示されればOK）
+    ```bash
+    $ cd ~/ros2_ws
+    $ colcon build
+    $ source ~/.bashrc
+    $ ros2 launch mypkg talk_listen.launch.py
+    ```
 
 ---
 
@@ -61,12 +66,11 @@ style: |
 
 - ノードを立ち上げ、`listener`の出力を検査
     - 標準的な方法ではないがシェルスクリプトで
-    - `test`ディレクトリにシェルスクリプトを置く
-        ```bash
-        $ cd ~/ros2_ws/src/mypkg   #パッケージのトップディレクトリへ
-        $ cd test                  #testディレクトリに移動
-        $ vi test.bash             #記述（次ページ）
-        ```
+- パッケージの`test`ディレクトリにシェルスクリプトを置く
+    ```bash
+    $ cd ~/ros2_ws/src/mypkg/test
+    ```
+    - このディレクトリに`test.bash`を作成（内容は次ページ）
     - `test`ディレクトリには他のテストがすでにあるので、あとで見ておくこと
 
 ---
@@ -74,25 +78,22 @@ style: |
 ### `test.bash`の内容
 
 - 10秒間ノードを実行して、`listener`が出力するはずの行を探す
-    - 出力されるはずの行: `[listener-2] ...: Listen: 10`
-    - `~/.bashrc`ではなくROSの設定を直接読み込む（スクリプトからだと`.bashrc`は途中で終わるため）
     ```bash
     #!/bin/bash
 
     dir=~
     [ "$1" != "" ] && dir="$1"   #引数があったらそこをros2_wsのある場所にする
-
     cd $dir/ros2_ws
     source /opt/ros/jazzy/setup.bash
     colcon build
     source install/setup.bash
     timeout 10 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
-
     cat /tmp/mypkg.log |
     grep 'Listen: 10'
     ```
-- 書いたら`bash test.bash`で動作確認を
-    - `grep`の行を変えて終了ステータスを観察する、`mypkg.log`を確認するなど
+- `grep 文字列`: 入力（ここでは`cat`の出力）から文字列を含む行を探す
+    - 見つかれば終了ステータス0（成功）、なければ1（失敗）になる
+- `bash test.bash`で動作確認（文字列を変えて`echo $?`を見るなど）
 
 ---
 
@@ -114,17 +115,20 @@ style: |
 - テストに利用するコンテナ: `ros:jazzy`
     - ROS 2の公式イメージ（[Docker Hub](https://hub.docker.com/_/ros)）
     - Ubuntu 24.04にROS 2 Jazzyとビルド用のツール（`colcon`など）がインストール済み
-    - これをGitHub Actionsでダウンロードして使う
+    - これをGitHub Actionsでダウンロードして使う<br />　
+- コンテナを使う利点
+    - 同じ環境を誰でもどこでも再現できる（「自分のPCでは動いたのに」を防ぐ）
+    - ROSのインストール手順を書かなくてよく、時間もかからない
+    - 毎回まっさらな環境から始まるので、前回の状態に左右されない
+    - 仮想マシンよりも軽く、すぐに起動できる
 
 ---
 
 ### ワークフローファイルの準備
 
-- `mypkg`リポジトリに`.github/workflows/test.yml`を作成（第7回と同じ）
+- `.github/workflows`を作り、`test.yml`を作成（第7回と同じ）
     ```bash
-    $ cd ~/ros2_ws/src/mypkg
-    $ mkdir -p .github/workflows    #-p: 途中のディレクトリもまとめて作る
-    $ vi .github/workflows/test.yml
+    $ mkdir -p ~/ros2_ws/src/mypkg/.github/workflows   #-p: 途中も作る
     ```
     ```yaml
     name: test
@@ -164,7 +168,7 @@ style: |
 
 - ROS 2のパッケージをテストした
     - 今回はいろいろ応用が利くようにシェルスクリプトで
-        - 補足: もっと便利なやり方があるはずなので、興味があれば調べてみること<br />　
+        - 補足: 標準的には`launch_testing`（pytest）で書き、`colcon test`で実行する<br />　
 - ROS 2のパッケージをGitHub Actionsでテストした
     - 公式のコンテナを使えば、ROSのインストールを書かなくてよい
     - 環境を整えるワークフローを書くのは結構面倒だが、一度完成させればあとは簡単
