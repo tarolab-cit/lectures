@@ -88,11 +88,12 @@ style: |
     colcon build
     source install/setup.bash
     timeout 10 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
-    cat /tmp/mypkg.log |
-    grep 'Listen: 10'
+    cat /tmp/mypkg.log           #ログを表示（失敗時の原因調査用）
+    cat /tmp/mypkg.log | grep 'Listen: 10'
     ```
 - `grep 文字列`: 入力（ここでは`cat`の出力）から文字列を含む行を探す
     - 見つかれば終了ステータス0（成功）、なければ1（失敗）になる
+- ログを表示しておくと、GitHubで失敗したときにノードのエラーが見える
 - `bash test.bash`で動作確認（文字列を変えて`echo $?`を見るなど）
 
 ---
